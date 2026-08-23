@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal
 
 
 @dataclass(frozen=True, slots=True)
@@ -79,3 +80,20 @@ class TraceComparison:
     delta_average_current_ma: float
     regression_percent: float | None
     attribution: Attribution
+
+
+@dataclass(frozen=True, slots=True)
+class LimitCheck:
+    name: str
+    actual: float | None
+    limit: float
+    operator: Literal["<=", ">="]
+    unit: str
+    status: Literal["pass", "fail", "not_applicable"]
+    reason: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class GateResult:
+    passed: bool
+    checks: tuple[LimitCheck, ...]

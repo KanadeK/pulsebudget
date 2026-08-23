@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
+
 import pytest
 
+import pulsebudget.compare as compare_module
 from pulsebudget.compare import compare_traces
 from pulsebudget.models import Sample, Trace
 
@@ -71,3 +74,21 @@ def test_compare_reports_undefined_percent_when_baseline_is_zero() -> None:
 
     assert comparison.delta_average_current_ma == pytest.approx(1.0)
     assert comparison.regression_percent is None
+
+
+def test_compare_builds_each_time_index_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    tuple_calls = 0
+    real_tuple = tuple
+
+    def counting_tuple(values: Iterable[float]) -> tuple[float, ...]:
+        nonlocal tuple_calls
+        tuple_calls += 1
+        return real_tuple(values)
+
+    monkeypatch.setattr(compare_module, "tuple", counting_tuple, raising=False)
+    baseline = make_trace("baseline.csv", (0, 1), (1, 2), (2, 1))
+    candidate = make_trace("candidate.csv", (0, 2), (1, 3), (2, 2))
+
+    compare_module.compare_traces(baseline, candidate, pulse_threshold_ma=10)
+
+    assert tuple_calls == 2

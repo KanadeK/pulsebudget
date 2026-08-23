@@ -24,24 +24,25 @@ def compare_traces(
         _normalized_breakpoints(baseline, pulse_threshold_ma)
         | _normalized_breakpoints(candidate, pulse_threshold_ma)
     )
+    baseline_times = tuple(sample.time_s for sample in baseline.samples)
+    candidate_times = tuple(sample.time_s for sample in candidate.samples)
     idle_drift_ma = 0.0
     pulse_amplitude_ma = 0.0
     pulse_activity_ma = 0.0
 
     for left, right in pairwise(breakpoints):
-        baseline_left = _current_at(baseline, left)
-        baseline_right = _current_at(baseline, right)
-        candidate_left = _current_at(candidate, left)
-        candidate_right = _current_at(candidate, right)
+        baseline_left = _current_at(baseline, baseline_times, left)
+        baseline_right = _current_at(baseline, baseline_times, right)
+        candidate_left = _current_at(candidate, candidate_times, left)
+        candidate_right = _current_at(candidate, candidate_times, right)
         contribution_ma = (
             ((candidate_left - baseline_left) + (candidate_right - baseline_right))
             * 0.5
             * (right - left)
         )
 
-        middle = (left + right) * 0.5
-        baseline_is_pulse = _current_at(baseline, middle) > pulse_threshold_ma
-        candidate_is_pulse = _current_at(candidate, middle) > pulse_threshold_ma
+        baseline_is_pulse = (baseline_left + baseline_right) * 0.5 > pulse_threshold_ma
+        candidate_is_pulse = (candidate_left + candidate_right) * 0.5 > pulse_threshold_ma
         if baseline_is_pulse and candidate_is_pulse:
             pulse_amplitude_ma += contribution_ma
         elif baseline_is_pulse or candidate_is_pulse:
@@ -89,10 +90,9 @@ def _normalized_breakpoints(trace: Trace, threshold_ma: float) -> set[float]:
     return breakpoints
 
 
-def _current_at(trace: Trace, normalized_time: float) -> float:
+def _current_at(trace: Trace, times: tuple[float, ...], normalized_time: float) -> float:
     start_s = trace.samples[0].time_s
     target_s = start_s + normalized_time * trace.duration_s
-    times = tuple(sample.time_s for sample in trace.samples)
     left_index = min(bisect_right(times, target_s) - 1, len(trace.samples) - 2)
     left = trace.samples[left_index]
     right = trace.samples[left_index + 1]

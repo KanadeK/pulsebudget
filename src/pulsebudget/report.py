@@ -141,7 +141,7 @@ def _analysis_markdown(analysis: TraceAnalysis, gate: GateResult) -> str:
     lines = [
         "# PulseBudget analysis",
         "",
-        f"**{_status(gate)}** — `{_escape_text(analysis.trace_name)}`",
+        f"**{_status(gate)}** — <code>{_escape_text(analysis.trace_name)}</code>",
         "",
         "## Metrics",
         "",
@@ -165,8 +165,8 @@ def _comparison_markdown(comparison: TraceComparison, gate: GateResult) -> str:
     lines = [
         "# PulseBudget comparison",
         "",
-        f"**{_status(gate)}** — `{_escape_text(comparison.baseline.trace_name)}` → "
-        f"`{_escape_text(comparison.candidate.trace_name)}`",
+        f"**{_status(gate)}** — <code>{_escape_text(comparison.baseline.trace_name)}</code> → "
+        f"<code>{_escape_text(comparison.candidate.trace_name)}</code>",
         "",
         "## Summary",
         "",

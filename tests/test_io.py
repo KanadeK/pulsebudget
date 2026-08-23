@@ -57,6 +57,26 @@ def test_load_trace_rejects_missing_columns(tmp_path: Path) -> None:
         load_trace(trace_path, CsvOptions())
 
 
+def test_load_trace_rejects_duplicate_columns(tmp_path: Path) -> None:
+    trace_path = write_text(
+        tmp_path / "trace.csv",
+        "time,current,current\n0,1,2\n1,2,3\n",
+    )
+
+    with pytest.raises(InputError, match="duplicate column: current"):
+        load_trace(trace_path, CsvOptions())
+
+
+def test_load_trace_rejects_unit_conversion_overflow(tmp_path: Path) -> None:
+    trace_path = write_text(
+        tmp_path / "trace.csv",
+        "time,current\n0,1\n1,1e308\n",
+    )
+
+    with pytest.raises(InputError, match="current must be finite"):
+        load_trace(trace_path, CsvOptions(current_unit="a"))
+
+
 def test_load_budget_parses_strict_contract(tmp_path: Path) -> None:
     budget_path = tmp_path / "budget.json"
     budget_path.write_text(
@@ -101,6 +121,16 @@ def test_load_budget_rejects_unknown_limit(tmp_path: Path) -> None:
     )
 
     with pytest.raises(InputError, match="unknown field"):
+        load_budget(budget_path)
+
+
+def test_load_budget_rejects_duplicate_fields(tmp_path: Path) -> None:
+    budget_path = write_text(
+        tmp_path / "budget.json",
+        '{"schema_version":1,"pulse_threshold_ma":10,"pulse_threshold_ma":20}',
+    )
+
+    with pytest.raises(InputError, match="duplicate field: pulse_threshold_ma"):
         load_budget(budget_path)
 
 

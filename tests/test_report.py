@@ -43,6 +43,7 @@ def test_analysis_report_is_deterministic_escaped_and_strict_json(tmp_path: Path
     assert payload["analysis"]["estimated_runtime_status"] == "unbounded"
     assert b'"passed": true' in first["report.json"]
     assert b"<script>" not in first["report.md"]
+    assert b"<code>&lt;script&gt;alert(1)&lt;/script&gt;.csv</code>" in first["report.md"]
     assert b"<script>" not in first["trace.svg"]
     assert b"&lt;script&gt;" in first["trace.svg"]
     assert b"<title>PulseBudget analysis: &lt;script&gt;" in first["trace.svg"]

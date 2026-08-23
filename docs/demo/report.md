@@ -1,6 +1,6 @@
 # PulseBudget comparison
 
-**PASS** — `baseline.csv` → `candidate.csv`
+**PASS** — <code>baseline.csv</code> → <code>candidate.csv</code>
 
 ## Summary
 

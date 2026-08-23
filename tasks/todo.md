@@ -49,7 +49,7 @@
 
 - [x] CI runs lint, type check, tests/coverage, demo, and packaging on supported Python versions.
 - [x] Packaging builds wheel, sdist, standalone `.pyz`, example bundle, and one checksum manifest.
-- [ ] Packaged CLI smoke test passes; final five-axis review has no required findings.
+- [x] Packaged CLI smoke test passes; final five-axis review has no required findings.
 - Verify: `python scripts/release_check.py` succeeds from the project root.
 - Files: `scripts/`, `.github/workflows/`, packaging config.
 - Dependencies: Task 5.

@@ -44,7 +44,11 @@ def load_trace(path: Path, options: CsvOptions) -> Trace:
     try:
         with handle:
             reader = csv.DictReader(handle)
-            fields = set(reader.fieldnames or ())
+            fields: set[str] = set()
+            for field in reader.fieldnames or ():
+                if field in fields:
+                    raise InputError(f"trace has duplicate column: {field}")
+                fields.add(field)
             required = {options.time_column, options.current_column}
             if not required.issubset(fields):
                 missing = ", ".join(sorted(required - fields))
@@ -86,7 +90,10 @@ def load_trace(path: Path, options: CsvOptions) -> Trace:
 
 def load_budget(path: Path) -> Budget:
     try:
-        raw = json.loads(path.read_text(encoding="utf-8-sig"))
+        raw = json.loads(
+            path.read_text(encoding="utf-8-sig"),
+            object_pairs_hook=_unique_json_object,
+        )
     except OSError as error:
         raise InputError(f"cannot read budget {path.name}: {error.strerror}") from error
     except UnicodeDecodeError as error:
@@ -148,7 +155,19 @@ def _parse_measurement(raw: str | None, row: int, column: str, scale: float) -> 
         raise InputError(f"row {row}: {column} must be a number") from error
     if not math.isfinite(value):
         raise InputError(f"row {row}: {column} must be finite")
-    return value * scale
+    converted = value * scale
+    if not math.isfinite(converted):
+        raise InputError(f"row {row}: {column} must be finite")
+    return converted
+
+
+def _unique_json_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    value: dict[str, object] = {}
+    for field, item in pairs:
+        if field in value:
+            raise InputError(f"budget JSON has duplicate field: {field}")
+        value[field] = item
+    return value
 
 
 def _require_object(value: object, location: str) -> dict[str, object]:

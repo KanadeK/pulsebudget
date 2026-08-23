@@ -29,9 +29,9 @@
 
 ## Task 4: Gate and report through the CLI
 
-- [ ] Applicable limits produce explicit pass/fail evidence.
-- [ ] JSON, Markdown, and SVG are deterministic and escaped.
-- [ ] Subprocess paths return documented exit codes and create all artifacts.
+- [x] Applicable limits produce explicit pass/fail evidence.
+- [x] JSON, Markdown, and SVG are deterministic and escaped.
+- [x] Subprocess paths return documented exit codes and create all artifacts.
 - Verify: CLI integration tests cover pass, fail, and invalid input.
 - Files: budget/report/CLI modules and tests.
 - Dependencies: Tasks 2-3.

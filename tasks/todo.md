@@ -56,9 +56,9 @@
 
 ## Task 7: Publish and notify
 
-- [ ] Atomic Git history has the expected author and no secrets/co-author trailers.
-- [ ] Public `KanadeK/pulsebudget` contains the exact verified commit.
-- [ ] CI is green; annotated `v0.1.0` and Release assets are online and downloadable.
-- [ ] Gmail message contains repository, Release, acceptance commands, and limitations.
+- [x] Atomic Git history has the expected author and no secrets/co-author trailers.
+- [x] Public `KanadeK/pulsebudget` contains the exact verified commit.
+- [x] CI is green; annotated `v0.1.0` and Release assets are online and downloadable.
+- [x] Gmail message contains repository, Release, acceptance commands, and limitations.
 - Verify: public API/`gh` checks and Gmail sent-message evidence.
 - Dependencies: Task 6 and valid external authentication.

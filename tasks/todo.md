@@ -20,9 +20,9 @@
 
 ## Task 3: Compare traces with exact attribution
 
-- [ ] Normalized knot/crossing merge partitions every interval into one category.
-- [ ] Idle, pulse-amplitude, and pulse-activity contributions sum to the observed delta.
-- [ ] Pulse counts/rates and regression percent are reported.
+- [x] Normalized knot/crossing merge partitions every interval into one category.
+- [x] Idle, pulse-amplitude, and pulse-activity contributions sum to the observed delta.
+- [x] Pulse counts/rates and regression percent are reported.
 - Verify: synthetic fixture activates every category and invariant passes.
 - Files: `src/pulsebudget/compare.py`, comparison tests/fixtures.
 - Dependencies: Task 2.

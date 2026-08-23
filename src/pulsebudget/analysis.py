@@ -93,6 +93,7 @@ def analyze_trace(
 ) -> TraceAnalysis:
     charge_mas = integrate_charge_mas(trace.samples)
     average_current_ma = charge_mas / trace.duration_s
+    pulses = find_pulses(trace, pulse_threshold_ma)
     estimated_runtime_hours: float | None = None
     if battery is not None:
         if average_current_ma == 0:
@@ -111,7 +112,8 @@ def analyze_trace(
         average_current_ma=average_current_ma,
         peak_current_ma=max(sample.current_ma for sample in trace.samples),
         p95_current_ma=time_weighted_quantile(trace.samples, 0.95),
-        pulses=find_pulses(trace, pulse_threshold_ma),
+        pulses=pulses,
+        pulse_rate_hz=len(pulses) / trace.duration_s,
         estimated_runtime_hours=estimated_runtime_hours,
     )
 

@@ -61,5 +61,21 @@ class TraceAnalysis:
     peak_current_ma: float
     p95_current_ma: float
     pulses: tuple[Pulse, ...]
+    pulse_rate_hz: float
     estimated_runtime_hours: float | None
 
+
+@dataclass(frozen=True, slots=True)
+class Attribution:
+    idle_drift_ma: float
+    pulse_amplitude_ma: float
+    pulse_activity_ma: float
+
+
+@dataclass(frozen=True, slots=True)
+class TraceComparison:
+    baseline: TraceAnalysis
+    candidate: TraceAnalysis
+    delta_average_current_ma: float
+    regression_percent: float | None
+    attribution: Attribution

@@ -41,3 +41,25 @@ class Budget:
     limits: BudgetLimits
     battery: Battery | None
 
+
+@dataclass(frozen=True, slots=True)
+class Pulse:
+    start_s: float
+    end_s: float
+    duration_s: float
+    charge_mah: float
+    excess_charge_mah: float
+    peak_current_ma: float
+
+
+@dataclass(frozen=True, slots=True)
+class TraceAnalysis:
+    trace_name: str
+    duration_s: float
+    charge_mah: float
+    average_current_ma: float
+    peak_current_ma: float
+    p95_current_ma: float
+    pulses: tuple[Pulse, ...]
+    estimated_runtime_hours: float | None
+

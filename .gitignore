@@ -1,5 +1,6 @@
 .venv/
 .pytest_cache/
+.pytest-tmp/
 .mypy_cache/
 .ruff_cache/
 .coverage
@@ -15,4 +16,3 @@ __pycache__/
 !.env.example
 *.pem
 *.key
-

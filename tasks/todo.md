@@ -11,9 +11,9 @@
 
 ## Task 2: Analyze one trace
 
-- [ ] Trapezoidal charge/average and time-weighted p95 match hand-calculated fixtures.
-- [ ] Threshold crossings and pulse metrics work with irregular sampling.
-- [ ] Battery runtime formula is transparent and tested.
+- [x] Trapezoidal charge/average and time-weighted p95 match hand-calculated fixtures.
+- [x] Threshold crossings and pulse metrics work with irregular sampling.
+- [x] Battery runtime formula is transparent and tested.
 - Verify: focused numerical tests plus full suite.
 - Files: `src/pulsebudget/analysis.py`, analysis tests.
 - Dependencies: Task 1.

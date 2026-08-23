@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "pulse_threshold_ma": 10.0,
+  "limits": {
+    "max_average_regression_percent": 10.0
+  }
+}

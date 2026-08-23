@@ -1,0 +1,143 @@
+{
+  "baseline": {
+    "average_current_ma": 0.15683866666666685,
+    "charge_mah": 0.002613977777777781,
+    "duration_s": 60.0,
+    "estimated_runtime_hours": 5508.845607800791,
+    "estimated_runtime_status": "estimated",
+    "p95_current_ma": 0.12,
+    "peak_current_ma": 45.0,
+    "pulse_count": 3,
+    "pulse_rate_hz": 0.05,
+    "pulses": [
+      {
+        "charge_mah": 6.727849231868113e-05,
+        "duration_s": 0.010411575562700115,
+        "end_s": 5.01120578778135,
+        "excess_charge_mah": 3.8357449088958585e-05,
+        "peak_current_ma": 25.0,
+        "start_s": 5.00079421221865
+      },
+      {
+        "charge_mah": 0.0003065409787297277,
+        "duration_s": 0.02867737617135191,
+        "end_s": 20.029338688085677,
+        "excess_charge_mah": 0.00022688160047597242,
+        "peak_current_ma": 45.0,
+        "start_s": 20.000661311914325
+      },
+      {
+        "charge_mah": 0.00023616738120756548,
+        "duration_s": 0.026411575562697465,
+        "end_s": 40.02720578778135,
+        "excess_charge_mah": 0.00016280189353340586,
+        "peak_current_ma": 38.0,
+        "start_s": 40.00079421221865
+      }
+    ],
+    "trace_name": "baseline.csv"
+  },
+  "budget_checks": [
+    {
+      "actual": 0.2067233333333336,
+      "actual_status": "measured",
+      "limit": 0.25,
+      "name": "max_average_current_ma",
+      "operator": "<=",
+      "reason": null,
+      "status": "pass",
+      "unit": "mA"
+    },
+    {
+      "actual": 52.0,
+      "actual_status": "measured",
+      "limit": 60.0,
+      "name": "max_peak_current_ma",
+      "operator": "<=",
+      "reason": null,
+      "status": "pass",
+      "unit": "mA"
+    },
+    {
+      "actual": 0.15,
+      "actual_status": "measured",
+      "limit": 0.2,
+      "name": "max_p95_current_ma",
+      "operator": "<=",
+      "reason": null,
+      "status": "pass",
+      "unit": "mA"
+    },
+    {
+      "actual": 4179.499169582528,
+      "actual_status": "measured",
+      "limit": 3000.0,
+      "name": "min_estimated_runtime_hours",
+      "operator": ">=",
+      "reason": null,
+      "status": "pass",
+      "unit": "hours"
+    },
+    {
+      "actual": 31.806357275841858,
+      "actual_status": "measured",
+      "limit": 50.0,
+      "name": "max_average_regression_percent",
+      "operator": "<=",
+      "reason": null,
+      "status": "pass",
+      "unit": "%"
+    }
+  ],
+  "candidate": {
+    "average_current_ma": 0.2067233333333336,
+    "charge_mah": 0.0034453888888888932,
+    "duration_s": 60.0,
+    "estimated_runtime_hours": 4179.499169582528,
+    "estimated_runtime_status": "estimated",
+    "p95_current_ma": 0.15,
+    "peak_current_ma": 52.0,
+    "pulse_count": 3,
+    "pulse_rate_hz": 0.05,
+    "pulses": [
+      {
+        "charge_mah": 0.00011488926112042108,
+        "duration_s": 0.014680067001675567,
+        "end_s": 5.015340033500838,
+        "excess_charge_mah": 7.411129722687784e-05,
+        "peak_current_ma": 30.0,
+        "start_s": 5.000659966499162
+      },
+      {
+        "charge_mah": 0.00046182289175834135,
+        "duration_s": 0.036869440459110336,
+        "end_s": 20.037434720229555,
+        "excess_charge_mah": 0.0003594077793719238,
+        "peak_current_ma": 52.0,
+        "start_s": 20.000565279770445
+      },
+      {
+        "charge_mah": 0.000367111483342614,
+        "duration_s": 0.034680067001673365,
+        "end_s": 40.03534003350084,
+        "excess_charge_mah": 0.00027077796389352135,
+        "peak_current_ma": 44.0,
+        "start_s": 40.000659966499164
+      }
+    ],
+    "trace_name": "candidate.csv"
+  },
+  "command": "compare",
+  "comparison": {
+    "attribution": {
+      "idle_drift_ma": 0.030136286195502085,
+      "pulse_activity_ma": 0.011063270018384015,
+      "pulse_amplitude_ma": 0.008685110452780745
+    },
+    "delta_average_current_ma": 0.049884666666666744,
+    "regression_percent": 31.806357275841858
+  },
+  "passed": true,
+  "pulse_threshold_ma": 10.0,
+  "schema_version": 1
+}

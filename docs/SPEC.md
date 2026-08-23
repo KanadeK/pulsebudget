@@ -122,9 +122,7 @@ trusts validated models.
 ```python
 def integrate_charge_mas(samples: tuple[Sample, ...]) -> float:
     return sum(
-        (left.current_ma + right.current_ma)
-        * 0.5
-        * (right.time_s - left.time_s)
+        (left.current_ma + right.current_ma) * 0.5 * (right.time_s - left.time_s)
         for left, right in pairwise(samples)
     )
 ```

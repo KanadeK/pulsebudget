@@ -178,8 +178,7 @@ def _comparison_markdown(comparison: TraceComparison, gate: GateResult) -> str:
         f"{_format_number(comparison.candidate.peak_current_ma)} mA |",
         f"| Time-weighted p95 | {_format_number(comparison.baseline.p95_current_ma)} mA | "
         f"{_format_number(comparison.candidate.p95_current_ma)} mA |",
-        f"| Pulse count | {len(comparison.baseline.pulses)} | "
-        f"{len(comparison.candidate.pulses)} |",
+        f"| Pulse count | {len(comparison.baseline.pulses)} | {len(comparison.candidate.pulses)} |",
         "",
         f"Average-current delta: **{_format_number(comparison.delta_average_current_ma)} mA**  ",
         f"Regression: **{_format_number(comparison.regression_percent)}%**",
@@ -289,7 +288,7 @@ def _svg_document(
         'viewBox="0 0 800 300" role="img">\n'
         f"  <title>{_escape_text(title)}: {_escape_text(subtitle)}</title>\n"
         "  <desc>Normalized current trace, pulse threshold, and budget status.</desc>\n"
-        "  <rect width=\"800\" height=\"300\" fill=\"#f8fafc\" />\n"
+        '  <rect width="800" height="300" fill="#f8fafc" />\n'
         f'  <text x="20" y="28" fill="#0f172a" font-size="18" '
         f'font-weight="700">{_escape_text(title)}</text>\n'
         f'  <text x="20" y="48" fill="#475569" font-size="12">'

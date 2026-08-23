@@ -34,9 +34,10 @@ def compare_traces(
         candidate_left = _current_at(candidate, left)
         candidate_right = _current_at(candidate, right)
         contribution_ma = (
-            (candidate_left - baseline_left)
-            + (candidate_right - baseline_right)
-        ) * 0.5 * (right - left)
+            ((candidate_left - baseline_left) + (candidate_right - baseline_right))
+            * 0.5
+            * (right - left)
+        )
 
         middle = (left + right) * 0.5
         baseline_is_pulse = _current_at(baseline, middle) > pulse_threshold_ma
@@ -59,9 +60,7 @@ def compare_traces(
 
     regression_percent = None
     if baseline_analysis.average_current_ma != 0:
-        regression_percent = (
-            delta_average_current_ma / baseline_analysis.average_current_ma * 100
-        )
+        regression_percent = delta_average_current_ma / baseline_analysis.average_current_ma * 100
 
     return TraceComparison(
         baseline=baseline_analysis,
@@ -79,16 +78,12 @@ def compare_traces(
 def _normalized_breakpoints(trace: Trace, threshold_ma: float) -> set[float]:
     start_s = trace.samples[0].time_s
     duration_s = trace.duration_s
-    breakpoints = {
-        (sample.time_s - start_s) / duration_s for sample in trace.samples
-    }
+    breakpoints = {(sample.time_s - start_s) / duration_s for sample in trace.samples}
     for left, right in pairwise(trace.samples):
         left_delta = left.current_ma - threshold_ma
         right_delta = right.current_ma - threshold_ma
         if left_delta * right_delta < 0:
-            fraction = (threshold_ma - left.current_ma) / (
-                right.current_ma - left.current_ma
-            )
+            fraction = (threshold_ma - left.current_ma) / (right.current_ma - left.current_ma)
             crossing_s = left.time_s + fraction * (right.time_s - left.time_s)
             breakpoints.add((crossing_s - start_s) / duration_s)
     return breakpoints

@@ -55,9 +55,7 @@ def test_compare_partitions_every_delta_into_exactly_one_category() -> None:
     assert attribution.pulse_amplitude_ma > 0
     assert attribution.pulse_activity_ma < 0
     assert (
-        attribution.idle_drift_ma
-        + attribution.pulse_amplitude_ma
-        + attribution.pulse_activity_ma
+        attribution.idle_drift_ma + attribution.pulse_amplitude_ma + attribution.pulse_activity_ma
     ) == pytest.approx(comparison.delta_average_current_ma, abs=1e-10)
     assert len(comparison.baseline.pulses) == 1
     assert len(comparison.candidate.pulses) == 1

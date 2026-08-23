@@ -38,17 +38,17 @@
 
 ## Task 5: Ship runnable examples and user documentation
 
-- [ ] Example traces are generated/verified by the real CLI.
-- [ ] English README and Chinese guide include quick start, acceptance, limitations, and repair flow.
-- [ ] Research, format, security, contributing, and changelog documents are current.
+- [x] Example traces are generated/verified by the real CLI.
+- [x] English README and Chinese guide include quick start, acceptance, limitations, and repair flow.
+- [x] Research, format, security, contributing, and changelog documents are current.
 - Verify: every documented command is exercised by the release gate.
 - Files: `examples/`, `README*`, `docs/`, community files.
 - Dependencies: Task 4.
 
 ## Task 6: Automate release quality and packaging
 
-- [ ] CI runs lint, type check, tests/coverage, demo, and packaging on supported Python versions.
-- [ ] Packaging builds wheel, sdist, standalone `.pyz`, example bundle, and one checksum manifest.
+- [x] CI runs lint, type check, tests/coverage, demo, and packaging on supported Python versions.
+- [x] Packaging builds wheel, sdist, standalone `.pyz`, example bundle, and one checksum manifest.
 - [ ] Packaged CLI smoke test passes; final five-axis review has no required findings.
 - Verify: `python scripts/release_check.py` succeeds from the project root.
 - Files: `scripts/`, `.github/workflows/`, packaging config.

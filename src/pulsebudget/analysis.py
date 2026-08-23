@@ -8,9 +8,7 @@ from pulsebudget.models import Battery, Pulse, Sample, Trace, TraceAnalysis
 
 def integrate_charge_mas(samples: tuple[Sample, ...]) -> float:
     return sum(
-        (left.current_ma + right.current_ma)
-        * 0.5
-        * (right.time_s - left.time_s)
+        (left.current_ma + right.current_ma) * 0.5 * (right.time_s - left.time_s)
         for left, right in pairwise(samples)
     )
 
@@ -56,9 +54,13 @@ def find_pulses(trace: Trace, threshold_ma: float) -> tuple[Pulse, ...]:
             duration_s = right.time_s - left.time_s
             charge_mas += (left.current_ma + right.current_ma) * 0.5 * duration_s
             excess_charge_mas += (
-                max(0.0, left.current_ma - threshold_ma)
-                + max(0.0, right.current_ma - threshold_ma)
-            ) * 0.5 * duration_s
+                (
+                    max(0.0, left.current_ma - threshold_ma)
+                    + max(0.0, right.current_ma - threshold_ma)
+                )
+                * 0.5
+                * duration_s
+            )
             peak_current_ma = max(peak_current_ma, left.current_ma, right.current_ma)
         elif start_s is not None:
             pulses.append(

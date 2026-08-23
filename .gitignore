@@ -16,3 +16,4 @@ __pycache__/
 !.env.example
 *.pem
 *.key
+.release-check-*/

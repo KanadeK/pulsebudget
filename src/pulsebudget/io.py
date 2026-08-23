@@ -106,8 +106,7 @@ def load_budget(path: Path) -> Budget:
     limits_raw = _require_object(root.get("limits", {}), "limits")
     _reject_unknown(limits_raw, _LIMIT_FIELDS, "limits")
     limit_values = {
-        field: _optional_non_negative_number(limits_raw, field, "limits")
-        for field in _LIMIT_FIELDS
+        field: _optional_non_negative_number(limits_raw, field, "limits") for field in _LIMIT_FIELDS
     }
     if (
         limit_values["min_estimated_runtime_hours"] is not None
@@ -187,4 +186,3 @@ def _optional_non_negative_number(
     if number < 0:
         raise InputError(f"{location}.{field} must be non-negative")
     return number
-

@@ -43,9 +43,7 @@ def test_load_trace_converts_explicit_units(tmp_path: Path) -> None:
         ("0,1\n1,-0.1\n", "non-negative"),
     ],
 )
-def test_load_trace_rejects_invalid_measurements(
-    tmp_path: Path, rows: str, message: str
-) -> None:
+def test_load_trace_rejects_invalid_measurements(tmp_path: Path, rows: str, message: str) -> None:
     trace_path = write_text(tmp_path / "invalid.csv", f"time,current\n{rows}")
 
     with pytest.raises(InputError, match=message):
@@ -125,4 +123,3 @@ def test_load_budget_rejects_out_of_range_values(tmp_path: Path) -> None:
 
     with pytest.raises(InputError, match="usable_fraction"):
         load_budget(budget_path)
-

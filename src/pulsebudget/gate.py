@@ -24,9 +24,7 @@ def evaluate_analysis(analysis: TraceAnalysis, budget: Budget) -> GateResult:
                 reason="requires the compare command",
             )
         )
-    return GateResult(
-        passed=all(check.status != "fail" for check in checks), checks=tuple(checks)
-    )
+    return GateResult(passed=all(check.status != "fail" for check in checks), checks=tuple(checks))
 
 
 def evaluate_comparison(comparison: TraceComparison, budget: Budget) -> GateResult:
@@ -54,9 +52,7 @@ def evaluate_comparison(comparison: TraceComparison, budget: Budget) -> GateResu
                     "%",
                 )
             )
-    return GateResult(
-        passed=all(check.status != "fail" for check in checks), checks=tuple(checks)
-    )
+    return GateResult(passed=all(check.status != "fail" for check in checks), checks=tuple(checks))
 
 
 def _metric_checks(analysis: TraceAnalysis, budget: Budget) -> list[LimitCheck]:

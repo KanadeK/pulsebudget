@@ -277,7 +277,7 @@ def _svg_document(
     line_elements = "\n".join(
         f'  <polyline points="{points}" fill="none" stroke="{color}" '
         'stroke-width="3" stroke-linejoin="round" />'
-        for _, color, points in polylines
+        for _, color, points in reversed(polylines)
     )
     legend_elements = "\n".join(
         f'  <text x="{570 + index * 100}" y="30" fill="{color}" '
@@ -287,6 +287,8 @@ def _svg_document(
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300" '
         'viewBox="0 0 800 300" role="img">\n'
+        f"  <title>{_escape_text(title)}: {_escape_text(subtitle)}</title>\n"
+        "  <desc>Normalized current trace, pulse threshold, and budget status.</desc>\n"
         "  <rect width=\"800\" height=\"300\" fill=\"#f8fafc\" />\n"
         f'  <text x="20" y="28" fill="#0f172a" font-size="18" '
         f'font-weight="700">{_escape_text(title)}</text>\n'
@@ -296,13 +298,13 @@ def _svg_document(
         f'font-weight="700">{status}</text>\n'
         f"{legend_elements}\n"
         '  <line x1="55" y1="250" x2="780" y2="250" stroke="#94a3b8" />\n'
-        '  <line x1="55" y1="50" x2="55" y2="250" stroke="#94a3b8" />\n'
+        '  <line x1="55" y1="70" x2="55" y2="250" stroke="#94a3b8" />\n'
         f'  <line x1="55" y1="{threshold_y:.2f}" x2="780" y2="{threshold_y:.2f}" '
         'stroke="#ea580c" stroke-width="1.5" stroke-dasharray="6 5" />\n'
         f'  <text x="60" y="{threshold_y - 5:.2f}" fill="#c2410c" font-size="11">'
         f"pulse threshold {_format_number(threshold_ma)} mA</text>\n"
         f"{line_elements}\n"
-        '  <text x="13" y="55" fill="#64748b" font-size="11">'
+        '  <text x="13" y="75" fill="#64748b" font-size="11">'
         f"{_format_number(maximum_ma)} mA</text>\n"
         '  <text x="56" y="272" fill="#64748b" font-size="11">0%</text>\n'
         '  <text x="752" y="272" fill="#64748b" font-size="11">100%</text>\n'
@@ -320,7 +322,7 @@ def _polyline(trace: Trace, maximum_ma: float) -> str:
 
 
 def _chart_y(current_ma: float, maximum_ma: float) -> float:
-    return 250 - 200 * current_ma / maximum_ma
+    return 250 - 180 * current_ma / maximum_ma
 
 
 def _status(gate: GateResult) -> str:

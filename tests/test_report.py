@@ -45,6 +45,7 @@ def test_analysis_report_is_deterministic_escaped_and_strict_json(tmp_path: Path
     assert b"<script>" not in first["report.md"]
     assert b"<script>" not in first["trace.svg"]
     assert b"&lt;script&gt;" in first["trace.svg"]
+    assert b"<title>PulseBudget analysis: &lt;script&gt;" in first["trace.svg"]
 
 
 def test_comparison_report_contains_exact_attribution(tmp_path: Path) -> None:

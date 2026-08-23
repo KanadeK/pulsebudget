@@ -1,0 +1,80 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pulsebudget"
+version = "0.1.0"
+description = "A Git diff for battery life: explain and gate embedded current-trace regressions."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "KanadeK", email = "121669563+KanadeK@users.noreply.github.com" }]
+keywords = ["battery", "embedded", "energy", "firmware", "iot", "power-profiler"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: System :: Hardware",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.3.0,<2",
+  "mypy>=1.17.0,<2",
+  "pytest>=8.4.0,<9",
+  "pytest-cov>=6.2.0,<8",
+  "ruff>=0.12.0,<1",
+]
+
+[project.urls]
+Homepage = "https://github.com/KanadeK/pulsebudget"
+Issues = "https://github.com/KanadeK/pulsebudget/issues"
+
+[project.scripts]
+pulsebudget = "pulsebudget.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pulsebudget"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["pulsebudget"]
+mypy_path = ["src"]
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers --basetemp=.pytest-tmp"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["pulsebudget"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 90
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "if __name__ == .__main__.:",
+]
+

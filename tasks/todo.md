@@ -2,9 +2,9 @@
 
 ## Task 1: Define models and strict input boundaries
 
-- [ ] Contract dataclasses and errors are typed and minimal.
-- [ ] CSV parser validates columns, units, finite values, ordering, non-negative current, and row cap.
-- [ ] Budget parser rejects unknown keys and invalid ranges.
+- [x] Contract dataclasses and errors are typed and minimal.
+- [x] CSV parser validates columns, units, finite values, ordering, non-negative current, and row cap.
+- [x] Budget parser rejects unknown keys and invalid ranges.
 - Verify: focused parser/model tests fail first, then pass.
 - Files: `src/pulsebudget/models.py`, `src/pulsebudget/io.py`, parser tests/fixtures.
 - Dependencies: none.
@@ -62,4 +62,3 @@
 - [ ] Gmail message contains repository, Release, acceptance commands, and limitations.
 - Verify: public API/`gh` checks and Gmail sent-message evidence.
 - Dependencies: Task 6 and valid external authentication.
-
